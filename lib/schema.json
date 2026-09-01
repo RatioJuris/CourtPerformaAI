@@ -1,0 +1,13 @@
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "CourtPerforma AI",
+  "url": "https://courtperforma.local",
+  "description": "Standardised legal compliance form builder for the Supreme Court and High Courts of India.",
+  "applicationCategory": "LegalApplication",
+  "operatingSystem": "Any",
+  "author": {
+    "@type": "Organization",
+    "name": "CourtPerforma"
+  }
+}
