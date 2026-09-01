@@ -4,12 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CourtPerforma AI - Engine</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    
+    <!-- External Resources loaded securely -->
+    <script src="https://cdn.tailwindcss.com" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" crossorigin="anonymous"></script>
+    
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Arial:wght@400;700&display=swap');
         body, input, select, textarea { font-family: 'Arial', sans-serif; }
     </style>
+    
     <script id="schema-injection" type="application/ld+json"></script>
 </head>
 <body class="bg-gray-100 min-h-screen text-gray-800 antialiased py-8 px-4">
@@ -23,18 +27,18 @@
         <!-- Dynamic Form Container -->
         <form id="dynamicForm" class="bg-white p-8 rounded-lg shadow-sm border border-gray-200 space-y-6" onsubmit="event.preventDefault();">
             <div id="formFieldsContainer" class="space-y-6 border-b border-gray-200 pb-6">
-                <!-- Data fields map here -->
+                <!-- Data fields dynamically map here -->
             </div>
 
             <!-- Execution Buttons -->
-            <div class="flex items-center space-x-4 pt-4">
-                <button onclick="generatePDF()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded shadow">
+            <div class="flex flex-wrap items-center gap-4 pt-4">
+                <button onclick="generatePDF()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded shadow transition-colors">
                     Generate PDF
                 </button>
-                <button onclick="generateDOCX()" class="bg-blue-800 hover:bg-blue-900 text-white font-bold py-2 px-6 rounded shadow">
+                <button onclick="generateDOCX()" class="bg-blue-800 hover:bg-blue-900 text-white font-bold py-2 px-6 rounded shadow transition-colors">
                     Generate DOCX
                 </button>
-                <button onclick="generateODT()" class="bg-indigo-700 hover:bg-indigo-800 text-white font-bold py-2 px-6 rounded shadow">
+                <button onclick="generateODT()" class="bg-indigo-700 hover:bg-indigo-800 text-white font-bold py-2 px-6 rounded shadow transition-colors">
                     Generate ODT
                 </button>
             </div>
@@ -45,18 +49,26 @@
         let dataSchema = {};
         let formatSchema = {};
 
-        // 1. Core Initialization
+        // 1. Core Initialization with Cache-Busting
         document.addEventListener("DOMContentLoaded", async () => {
             try {
                 const [dataRes, formatRes, schemaRes] = await Promise.all([
-                    fetch('./lib/layout-data.json'),
-                    fetch('./lib/layout-format.json'),
-                    fetch('./lib/schema.json')
+                    fetch('./lib/layout-data.json', { cache: "no-store" }),
+                    fetch('./lib/layout-format.json', { cache: "no-store" }),
+                    fetch('./lib/schema.json', { cache: "no-store" })
                 ]);
                 
+                if (!dataRes.ok || !formatRes.ok) {
+                    throw new Error("Could not locate JSON cartridges on the server.");
+                }
+
                 dataSchema = await dataRes.json();
                 formatSchema = await formatRes.json();
                 const seoSchema = await schemaRes.json();
+                
+                if (!dataSchema || !dataSchema.formSchema) {
+                    throw new Error("Missing 'formSchema' wrapper in layout-data.json.");
+                }
                 
                 document.getElementById('schema-injection').textContent = JSON.stringify(seoSchema);
                 document.getElementById('appTitle').innerText = dataSchema.formTitle || seoSchema.name;
@@ -65,13 +77,18 @@
                 buildDynamicUI(dataSchema.formSchema);
             } catch (error) {
                 console.error("Initialization Failed.", error);
-                document.getElementById('appTitle').innerText = "System Error: Cartridges not found.";
+                document.getElementById('appTitle').innerText = "System Error";
+                document.getElementById('appDesc').innerText = error.message;
+                document.getElementById('appDesc').className = "text-sm text-red-600 mt-1 font-bold";
             }
         });
 
         // 2. Data to UI Compiler
         function buildDynamicUI(schema) {
             const container = document.getElementById('formFieldsContainer');
+            
+            if (!schema || typeof schema !== 'object') return;
+
             Object.entries(schema).forEach(([sectionKey, sectionFields]) => {
                 const sectionDiv = document.createElement('div');
                 sectionDiv.className = "grid grid-cols-1 md:grid-cols-2 gap-4 p-4 bg-gray-50 border border-gray-200 rounded mb-4";
@@ -88,11 +105,13 @@
                         select.id = fieldId;
                         select.className = "w-full border border-gray-300 rounded px-3 py-1.5 text-sm bg-white";
                         
-                        fieldData.options.forEach(opt => {
-                            const option = document.createElement('option');
-                            option.value = opt; option.innerText = opt;
-                            select.appendChild(option);
-                        });
+                        if (Array.isArray(fieldData.options)) {
+                            fieldData.options.forEach(opt => {
+                                const option = document.createElement('option');
+                                option.value = opt; option.innerText = opt;
+                                select.appendChild(option);
+                            });
+                        }
 
                         if (fieldData.allowCustom) {
                             const customInput = document.createElement('input');
@@ -137,10 +156,20 @@
 
         // 4. PDF Engine
         function generatePDF() {
+            if (!window.jspdf || !window.jspdf.jsPDF) {
+                alert("PDF library is still loading or failed to load. Please try again in a moment.");
+                return;
+            }
+            
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF({ orientation: 'portrait', unit: 'pt', format: [612, 972] });
-            const layout = formatSchema.documentFormatSchema.layout;
             
+            if (!formatSchema || !formatSchema.documentFormatSchema) {
+                alert("Format layout data is missing.");
+                return;
+            }
+            
+            const layout = formatSchema.documentFormatSchema.layout;
             const mLeft = 36;
             let y = 108;
             let currentNumber = 1;
@@ -215,19 +244,22 @@
 
         // 5. DOCX Engine (WordprocessingML)
         function generateDOCX() {
+            if (!formatSchema || !formatSchema.documentFormatSchema) {
+                alert("Format layout data is missing.");
+                return;
+            }
             const layout = formatSchema.documentFormatSchema.layout;
             let currentNumber = 1;
-            
             let xmlContent = ``;
             
             layout.forEach(item => {
                 let jc = "left";
                 let ind = "0";
                 let b = item.format && item.format.bold ? "<w:b/>" : "";
-                let sz = item.format && item.format.size === 16 ? "32" : "24"; // Word sizes are in half-points
+                let sz = item.format && item.format.size === 16 ? "32" : "24"; 
 
                 if (item.hierarchy === "secondary" || (item.format && item.format.align === "indented")) {
-                    ind = "4000"; // roughly halfway across the page in twentieths of a point (twips)
+                    ind = "4000"; 
                 } else if (item.format && item.format.align === "center") {
                     jc = "center";
                 }
@@ -308,9 +340,12 @@
 
         // 6. ODT Engine (Flat OpenDocument XML)
         function generateODT() {
+            if (!formatSchema || !formatSchema.documentFormatSchema) {
+                alert("Format layout data is missing.");
+                return;
+            }
             const layout = formatSchema.documentFormatSchema.layout;
             let currentNumber = 1;
-            
             let xmlContent = ``;
             
             layout.forEach(item => {
