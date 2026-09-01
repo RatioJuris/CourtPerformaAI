@@ -1,0 +1,347 @@
+{
+  "documentFormatSchema": {
+    "globalSettings": {
+      "defaultFont": "arial",
+      "defaultSize": 12,
+      "pageMarginLeft": 36,
+      "pageMarginRight": 36
+    },
+    "layout": [
+      {
+        "type": "static_text",
+        "text": "PROFORMA FOR FRESH FILING",
+        "format": {
+          "bold": true,
+          "font": "default",
+          "size": 16,
+          "underlined": true,
+          "decoration": "uppercase",
+          "align": "center",
+          "linebreak": true
+        }
+      },
+      { "type": "spacing", "height": 20 },
+      {
+        "hierarchy": "primary",
+        "numbered": true,
+        "fieldId": "f1_category",
+        "label": "Category",
+        "inputStyle": "long_underline",
+        "format": { "bold": false, "align": "left", "linebreak": true }
+      },
+      {
+        "hierarchy": "primary",
+        "numbered": true,
+        "fieldId": "f2_bench",
+        "label": "Cognizable by",
+        "inputStyle": "inline_text",
+        "inputText": "Single Judge/Division Bench/Larger Bench",
+        "format": { "bold": false, "align": "left", "linebreak": true }
+      },
+      {
+        "hierarchy": "primary",
+        "numbered": true,
+        "fieldId": "f3_district",
+        "label": "District",
+        "inputStyle": "long_underline",
+        "format": { "bold": false, "align": "left", "linebreak": true }
+      },
+      {
+        "hierarchy": "primary",
+        "numbered": true,
+        "fieldId": "f4_petitioner_name",
+        "label": "Petitioner /Appellant/Applicant",
+        "inputStyle": "long_underline",
+        "format": { "bold": false, "align": "left", "linebreak": true }
+      },
+      {
+        "hierarchy": "secondary",
+        "numbered": false,
+        "type": "inline_group",
+        "fields": [
+          { "label": "Age :", "fieldId": "f4_age", "inputStyle": "short_underline" },
+          { "label": "Gender:", "fieldId": "f4_gender", "inputStyle": "short_underline" },
+          { "label": "Mobile", "fieldId": "f4_mobile", "inputStyle": "long_underline" }
+        ],
+        "format": { "bold": true, "align": "indented", "linebreak": true }
+      },
+      {
+        "hierarchy": "secondary",
+        "numbered": false,
+        "type": "inline_group",
+        "fields": [
+          { "label": "E-Mail :", "fieldId": "f4_email", "inputStyle": "fill_underline" }
+        ],
+        "format": { "bold": true, "align": "indented", "linebreak": true }
+      },
+      {
+        "hierarchy": "primary",
+        "numbered": true,
+        "fieldId": "f5_respondent_name",
+        "label": "Respondent",
+        "inputStyle": "long_underline",
+        "format": { "bold": false, "align": "left", "linebreak": true }
+      },
+      {
+        "hierarchy": "secondary",
+        "numbered": false,
+        "type": "inline_group",
+        "fields": [
+          { "label": "Age :", "fieldId": "f5_age", "inputStyle": "short_underline" },
+          { "label": "Gender:", "fieldId": "f5_gender", "inputStyle": "short_underline" },
+          { "label": "Mobile", "fieldId": "f5_mobile", "inputStyle": "long_underline" }
+        ],
+        "format": { "bold": true, "align": "indented", "linebreak": true }
+      },
+      {
+        "hierarchy": "secondary",
+        "numbered": false,
+        "type": "inline_group",
+        "fields": [
+          { "label": "E-Mail :", "fieldId": "f5_email", "inputStyle": "fill_underline" }
+        ],
+        "format": { "bold": true, "align": "indented", "linebreak": true }
+      },
+      {
+        "hierarchy": "primary",
+        "numbered": true,
+        "fieldId": "f6_petAdv",
+        "label": "Petitioner’s Advocate Name & Roll No.",
+        "inputStyle": "long_underline",
+        "format": { "bold": false, "align": "left", "linebreak": true }
+      },
+      {
+        "hierarchy": "primary",
+        "numbered": true,
+        "fieldId": "f7_resAdv",
+        "label": "Respondent’s Advocate Name & Roll No.",
+        "inputStyle": "long_underline",
+        "format": { "bold": false, "align": "left", "linebreak": true }
+      },
+      {
+        "hierarchy": "primary",
+        "numbered": true,
+        "fieldId": "f8_notice",
+        "label": "Notice No. (If any)",
+        "inputStyle": "long_underline",
+        "format": { "bold": false, "align": "left", "linebreak": true }
+      },
+      {
+        "hierarchy": "primary",
+        "numbered": true,
+        "fieldId": "f9_fee",
+        "label": "Court Fee Paid",
+        "inputStyle": "long_underline",
+        "format": { "bold": false, "align": "left", "linebreak": true }
+      },
+      {
+        "hierarchy": "primary",
+        "numbered": true,
+        "fieldId": "f10_affidavits",
+        "label": "No. of Affidavits attached",
+        "inputStyle": "long_underline",
+        "format": { "bold": false, "align": "left", "linebreak": true }
+      },
+      { "type": "spacing", "height": 15 },
+      {
+        "type": "static_text",
+        "text": "CRIME DETAILS (If Any)",
+        "format": { "bold": true, "underlined": true, "decoration": "uppercase", "align": "indented", "linebreak": true }
+      },
+      {
+        "hierarchy": "primary",
+        "numbered": true,
+        "fieldId": "f11_crimeNo",
+        "label": "Crime No. & Year",
+        "inputStyle": "long_underline",
+        "format": { "bold": false, "align": "left", "linebreak": true }
+      },
+      {
+        "hierarchy": "primary",
+        "numbered": true,
+        "fieldId": "f12_section",
+        "label": "Under Section",
+        "inputStyle": "long_underline",
+        "format": { "bold": false, "align": "left", "linebreak": true }
+      },
+      {
+        "hierarchy": "primary",
+        "numbered": true,
+        "fieldId": "f13_station",
+        "label": "Police Station & Crime District",
+        "inputStyle": "long_underline",
+        "format": { "bold": false, "align": "left", "linebreak": true }
+      },
+      { "type": "spacing", "height": 15 },
+      {
+        "type": "static_text",
+        "text": "Lower Court / High Court DETAILS (If Any)",
+        "format": { "bold": true, "underlined": true, "decoration": "uppercase", "align": "left", "linebreak": true }
+      },
+      {
+        "hierarchy": "primary",
+        "numbered": true,
+        "fieldId": "f14_lcCase",
+        "label": "Lower / High Court Case No. details",
+        "inputStyle": "long_underline",
+        "format": { "bold": false, "align": "left", "linebreak": true }
+      },
+      {
+        "hierarchy": "primary",
+        "numbered": true,
+        "fieldId": "f15_lcDate",
+        "label": "Lower / High court order date",
+        "inputStyle": "long_underline",
+        "format": { "bold": false, "align": "left", "linebreak": true }
+      },
+      {
+        "hierarchy": "primary",
+        "numbered": true,
+        "fieldId": "f16_lcJudge",
+        "label": "Lower / High Court order passed by",
+        "inputStyle": "long_underline",
+        "format": { "bold": false, "align": "left", "linebreak": true }
+      },
+      { "type": "spacing", "height": 15 },
+      {
+        "type": "static_text",
+        "text": "EXTRA PARTIES & ADVOCATES (Add additional sheet if required)",
+        "format": { "bold": true, "underlined": true, "decoration": "uppercase", "align": "left", "linebreak": true }
+      },
+      {
+        "hierarchy": "primary",
+        "numbered": true,
+        "fieldId": "f17_exPet",
+        "label": "Extra Parties (Petitioner)(Mob./email)",
+        "inputStyle": "long_underline",
+        "format": { "bold": false, "align": "left", "linebreak": true }
+      },
+      {
+        "hierarchy": "primary",
+        "numbered": true,
+        "fieldId": "f18_exRes",
+        "label": "Extra Parties (Respondent)(Mob./email)",
+        "inputStyle": "long_underline",
+        "format": { "bold": false, "align": "left", "linebreak": true }
+      },
+      {
+        "hierarchy": "primary",
+        "numbered": true,
+        "fieldId": "f19_exPetAdv",
+        "label": "Extra Advocates (Pet)(With Roll No.)",
+        "inputStyle": "long_underline",
+        "format": { "bold": false, "align": "left", "linebreak": true }
+      },
+      {
+        "hierarchy": "primary",
+        "numbered": true,
+        "fieldId": "f20_exResAdv",
+        "label": "Extra Advocates (Res)(With Roll No.)",
+        "inputStyle": "long_underline",
+        "format": { "bold": false, "align": "left", "linebreak": true }
+      },
+      { "type": "spacing", "height": 15 },
+      {
+        "type": "static_text",
+        "text": "ACTS & SECTIONS (Mandatory)",
+        "format": { "bold": true, "underlined": true, "decoration": "uppercase", "align": "left", "linebreak": true }
+      },
+      {
+        "hierarchy": "primary",
+        "numbered": true,
+        "fieldId": "f21_actTitle",
+        "label": "Title of Act involved (Center/State)",
+        "inputStyle": "long_underline",
+        "format": { "bold": false, "align": "left", "linebreak": true }
+      },
+      {
+        "hierarchy": "primary",
+        "numbered": true,
+        "fieldId": "f22_sections",
+        "label": "Sections",
+        "inputStyle": "long_underline",
+        "format": { "bold": false, "align": "left", "linebreak": true }
+      },
+      {
+        "hierarchy": "primary",
+        "numbered": true,
+        "fieldId": "f23_ruleTitle",
+        "label": "Title of Rule involved (Center/State)",
+        "inputStyle": "long_underline",
+        "format": { "bold": false, "align": "left", "linebreak": true }
+      },
+      {
+        "hierarchy": "primary",
+        "numbered": true,
+        "fieldId": "f24_viresAct",
+        "label": "(i) Vires of Acts/Rule challenged (Yes/No) Act",
+        "inputStyle": "long_underline",
+        "format": { "bold": false, "align": "left", "linebreak": true }
+      },
+      {
+        "hierarchy": "secondary",
+        "numbered": false,
+        "fieldId": "f24_viresRule",
+        "label": "Rule",
+        "inputStyle": "long_underline",
+        "format": { "bold": false, "align": "left", "linebreak": true }
+      },
+      {
+        "hierarchy": "secondary",
+        "numbered": false,
+        "fieldId": "f24_similarCases",
+        "label": "(ii) Particulars of cases involving similar/Identical challenge",
+        "inputStyle": "long_underline",
+        "format": { "bold": false, "align": "left", "linebreak": true }
+      },
+      {
+        "hierarchy": "primary",
+        "numbered": true,
+        "fieldId": "f25_remarks",
+        "label": "Remarks (if any)",
+        "inputStyle": "long_underline",
+        "format": { "bold": false, "align": "left", "linebreak": true }
+      },
+      { "type": "spacing", "height": 20 },
+      {
+        "hierarchy": "primary",
+        "numbered": false,
+        "fieldId": "f26_advSignature",
+        "label": "Advocate’s name & signature",
+        "inputStyle": "long_underline",
+        "format": { "bold": false, "align": "left", "linebreak": true }
+      },
+      { "type": "spacing", "height": 30 },
+      {
+        "type": "static_text",
+        "text": "FOR STAMP REPORTER OFFICE USE ONLY",
+        "format": { "bold": true, "underlined": false, "decoration": "uppercase", "align": "center", "linebreak": true }
+      },
+      { "type": "spacing", "height": 15 },
+      {
+        "hierarchy": "primary",
+        "numbered": false,
+        "fieldId": "stamp_cnr",
+        "label": "CNR No. (Unique ID)",
+        "inputStyle": "long_underline",
+        "format": { "bold": false, "align": "left", "linebreak": true }
+      },
+      {
+        "hierarchy": "primary",
+        "numbered": false,
+        "fieldId": "stamp_date",
+        "label": "Date of Reporting",
+        "inputStyle": "long_underline",
+        "format": { "bold": false, "align": "left", "linebreak": true }
+      },
+      {
+        "hierarchy": "primary",
+        "numbered": false,
+        "fieldId": "stamp_reporter",
+        "label": "Reporter",
+        "inputStyle": "long_underline",
+        "format": { "bold": false, "align": "left", "linebreak": true }
+      }
+    ]
+  }
+}
