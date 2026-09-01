@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CourtPerforma AI - High Courts and Supreme Court of India</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Arial:wght@400;700&display=swap');
+        body, input, select, textarea {
+            font-family: 'Arial', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen text-gray-800 antialiased">
+
+    <div class="max-w-6xl mx-auto py-8 px-4">
+        <header class="mb-8 bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+            <h1 class="text-2xl font-bold text-gray-900 tracking-tight">CourtPerforma AI</h1>
+            <p class="text-sm text-gray-500 mt-1">Standardised legal compliance form builder for the Supreme Court and High Courts of India.</p>
+        </header>
+
+        <form id="performaForm" class="bg-white p-8 rounded-lg shadow-sm border border-gray-200 space-y-6" onsubmit="event.preventDefault();">
+            
+            <div class="border-b border-gray-200 pb-6">
+                <h2 class="text-lg font-bold text-gray-700 mb-4">1. Administration Details</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-600 mb-1">1. Category</label>
+                        <input type="text" id="f1" class="w-full border border-gray-300 rounded px-3 py-1.5 text-sm focus:ring-1 focus:ring-blue-500 focus:outline-none" placeholder="e.g., Civil Writ Petition">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-600 mb-1">2. Cognizable by</label>
+                        <select id="f2" class="w-full border border-gray-300 rounded px-3 py-1.5 text-sm focus:ring-1 focus:ring-blue-500 focus:outline-none bg-white">
+                            <option value="Single Judge">Single Judge</option>
+                            <option value="Division Bench">Division Bench</option>
+                            <option value="Larger Bench">Larger Bench</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-600 mb-1">3. District</label>
+                        <input type="text" id="f3" class="w-full border border-gray-300 rounded px-3 py-1.5 text-sm focus:ring-1 focus:ring-blue-500 focus:outline-none">
+                    </div>
+                </div>
+            </div>
+
+            <div class="border-b border-gray-200 pb-6">
+                <h2 class="text-lg font-bold text-gray-700 mb-4">2. Litigant Profiles</h2>
+                <div class="space-y-4">
+                    <div class="bg-gray-50 p-4 rounded border border-gray-200">
+                        <span class="text-sm font-bold block mb-3 text-blue-900">4. Petitioner / Appellant / Applicant</span>
+                        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                            <div class="md:col-span-2">
+                                <label class="block text-xs text-gray-500 font-medium">Full Name</label>
+                                <input type="text" id="f4_name" class="w-full border border-gray-300 rounded px-2 py-1 text-sm bg-white">
+                            </div>
+                            <div>
+                                <label class="block text-xs text-gray-500 font-medium">Age</label>
+                                <input type="text" id="f4_age" class="w-full border border-gray-300 rounded px-2 py-1 text-sm bg-white">
+                            </div>
+                            <div>
+                                <label class="block text-xs text-gray-500 font-medium">Gender</label>
+                                <input type="text" id="f4_gender" class="w-full border border-gray-300 rounded px-2 py-1 text-sm bg-white">
+                            </div>
+                            <div class="md:col-span-2">
+                                <label class="block text-xs text-gray-500 font-medium">Mobile</label>
+                                <input type="text" id="f4_mobile" class="w-full border border-gray-300 rounded px-2 py-1 text-sm bg-white">
+                            </div>
+                            <div class="md:col-span-2">
+                                <label class="block text-xs text-gray-500 font-medium">E-Mail</label>
+                                <input type="email" id="f4_email" class="w-full border border-gray-300 rounded px-2 py-1 text-sm bg-white">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-gray-50 p-4 rounded border border-gray-200">
+                        <span class="text-sm font-bold block mb-3 text-red-900">5. Respondent Parameters</span>
+                        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                            <div class="md:col-span-2">
+                                <label class="block text-xs text-gray-500 font-medium">Full Name / Authority</label>
+                                <input type="text" id="f5_name" class="w-full border border-gray-300 rounded px-2 py-1 text-sm bg-white">
+                            </div>
+                            <div>
+                                <label class="block text-xs text-gray-500 font-medium">Age</label>
+                                <input type="text" id="f5_age" class="w-full border border-gray-300 rounded px-2 py-1 text-sm bg-white">
+                            </div>
+                            <div>
+                                <label class="block text-xs text-gray-500 font-medium">Gender</label>
+                                <input type="text" id="f5_gender" class="w-full border border-gray-300 rounded px-2 py-1 text-sm bg-white">
+                            </div>
+                            <div class="md:col-span-2">
+                                <label class="block text-xs text-gray-500 font-medium">Mobile</label>
+                                <input type="text" id="f5_mobile" class="w-full border border-gray-300 rounded px-2 py-1 text-sm bg-white">
+                            </div>
+                            <div class="md:col-span-2">
+                                <label class="block text-xs text-gray-500 font-medium">E-Mail</label>
+                                <input type="email" id="f5_email" class="w-full border border-gray-300 rounded px-2 py-1 text-sm bg-white">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="border-b border-gray-200 pb-6">
+                <h2 class="text-lg font-bold text-gray-700 mb-4">3. Counsel & Fees</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-600 mb-1">6. Petitioner’s Advocate Name & Roll No.</label>
+                        <input type="text" id="f6" class="w-full border border-gray-300 rounded px-3 py-1.5 text-sm focus:ring-1 focus:ring-blue-500 focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-600 mb-1">7. Respondent’s Advocate Name & Roll No.</label>
+                        <input type="text" id="f7" class="w-full border border-gray-300 rounded px-3 py-1.5 text-sm focus:ring-1 focus:ring-blue-500 focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-600 mb-1">8. Notice No. (If any)</label>
+                        <input type="text" id="f8" class="w-full border border-gray-300 rounded px-3 py-1.5 text-sm focus:ring-1 focus:ring-blue-500 focus:outline-none">
+                    </div>
+                    <div class="grid grid-cols-2 gap-2">
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-600 mb-1">9. Court Fee Paid</label>
+                            <input type="text" id="f9" class="w-full border border-gray-300 rounded px-3 py-1.5 text-sm focus:ring-1 focus:ring-blue-500 focus:outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-600 mb-1">10. No. of Affidavits</label>
+                            <input type="number" id="f10" class="w-full border border-gray-300 rounded px-3 py-1.5 text-sm focus:ring-1 focus:ring-blue-500 focus:outline-none">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="border-b border-gray-200 pb-6">
+                <h2 class="text-lg font-bold text-gray-700 mb-4">4. Crime Details (If Any)</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-600 mb-1">11. Crime No. & Year</label>
+                        <input type="text" id="f11" class="w-full border border-gray-300 rounded px-3 py-1.5 text-sm focus:ring-1 focus:ring-blue-500 focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-600 mb-1">12. Under Section</label>
+                        <input type="text" id="f12" class="w-full border border-gray-300 rounded px-3 py-1.5 text-sm focus:ring-1 focus:ring-blue-500 focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-600 mb-1">13. Police Station & District</label>
+                        <input type="text" id="f13" class="w-full border border-gray-300 rounded px-3 py-1.5 text-sm focus:ring-1 focus:ring-blue-500 focus:outline-none">
+                    </div>
+                </div>
+            </div>
+
+            <div class="border-b border-gray-200 pb-6">
+                <h2 class="text-lg font-bold text-gray-700 mb-4">5. Lower Court / High Court Details (If Any)</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-600 mb-1">14. Case No. Details</label>
+                        <input type="text" id="f14" class="w-full border border-gray-300 rounded px-3 py-1.5 text-sm focus:ring-1 focus:ring-blue-500 focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-600 mb-1">15. Order Date</label>
+                        <input type="text" id="f15" class="w-full border border-gray-300 rounded px-3 py-1.5 text-sm focus:ring-1 focus:ring-blue-500 focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-600 mb-1">16. Order Passed By</label>
+                        <input type="text" id="f16" class="w-full border border-gray-300 rounded px-3 py-1.5 text-sm focus:ring-1 focus:ring-blue-500 focus:outline-none">
+                    </div>
+                </div>
+            </div>
+
+            <div class="border-b border-gray-200 pb-6">
+                <h2 class="text-lg font-bold text-gray-700 mb-4">6. Extra Parties & Advocates</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-600 mb-1">17. Extra Parties (Petitioner)</label>
+                        <textarea id="f17" rows="2" class="w-full border border-gray-300 rounded px-3 py-1.5 text-sm focus:ring-1 focus:ring-blue-500 focus:outline-none"></textarea>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-600 mb-1">18. Extra Parties (Respondent)</label>
+                        <textarea id="f18" rows="2" class="w-full border border-gray-300 rounded px-3 py-1.5 text-sm focus:ring-1 focus:ring-blue-500 focus:outline-none"></textarea>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-600 mb-1">19. Extra Advocates (Petitioner)</label>
+                        <textarea id="f19" rows="2" class="w-full border border-gray-300 rounded px-3 py-1.5 text-sm focus:ring-1 focus:ring-blue-500 focus:outline-none"></textarea>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-600 mb-1">20. Extra Advocates (Respondent)</label>
+                        <textarea id="f20" rows="2" class="w-full border border-gray-300 rounded px-3 py-1.5 text-sm focus:ring-1 focus:ring-blue-500 focus:outline-none"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="border-b border-gray-200 pb-6">
+                <h2 class="text-lg font-bold text-gray-700 mb-4">7. Acts, Sections & Vires</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-600 mb-1">21. Title of Act involved</label>
+                        <input type="text" id="f21" class="w-full border border-gray-300 rounded px-3 py-1.5 text-sm focus:ring-1 focus:ring-blue-500 focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-600 mb-1">22. Sections</label>
+                        <input type="text" id="f22" class="w-full border border-gray-300 rounded px-3 py-1.5 text-sm focus:ring-1 focus:ring-blue-500 focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-600 mb-1">23. Title of Rule involved</label>
+                        <input type="text" id="f23" class="w-full border border-gray-300 rounded px-3 py-1.5 text-sm focus:ring-1 focus:ring-blue-500 focus:outline-none">
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-600 mb-1">24(i). Vires of Acts/Rule challenged</label>
+                        <input type="text" id="f24_i" class="w-full border border-gray-300 rounded px-3 py-1.5 text-sm focus:ring-1 focus:ring-blue-500 focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-600 mb-1">24(ii). Cases with similar challenge</label>
+                        <input type="text" id="f24_ii" class="w-full border border-gray-300 rounded px-3 py-1.5 text-sm focus:ring-1 focus:ring-blue-500 focus:outline-none">
+                    </div>
+                </div>
+            </div>
+
+            <div class="pb-6">
+                <h2 class="text-lg font-bold text-gray-700 mb-4">8. Remarks & Submission</h2>
+                <label class="block text-xs font-semibold text-gray-600 mb-1">25. Remarks (if any)</label>
+                <textarea id="f25" rows="3" class="w-full border border-gray-300 rounded px-3 py-1.5 text-sm focus:ring-1 focus:ring-blue-500 focus:outline-none"></textarea>
+            </div>
+
+            <div class="flex items-center space-x-4 pt-4 border-t border-gray-200">
+                <button onclick="exportCourtPDF()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded shadow">
+                    Download PDF
+                </button>
+                <button onclick="exportCourtDOCX()" class="bg-gray-800 hover:bg-gray-900 text-white font-bold py-2 px-6 rounded shadow">
+                    Download DOCX
+                </button>
+            </div>
+            
+            <p class="text-xs text-gray-500 italic mt-4">Note: We do not store or process your data/information at server, everything is executed on your browser.</p>
+        </form>
+    </div>
+
+    <script>
+        /**
+         * Dynamic state extractor
+         * Collects form elements and builds structural templates matching court layouts
+         */
+        function extractFormData() {
+            const check = (id) => {
+                const el = document.getElementById(id);
+                return el && el.value.trim() ? el.value.trim() : '_______________________________________';
+            };
+            
+            const getVal = (id) => {
+                const el = document.getElementById(id);
+                return el ? el.value.trim() : '';
+            };
+
+            return {
+                category: check('f1'),
+                bench: getVal('f2') || '________________',
+                district: check('f3'),
+                petName: check('f4_name'),
+                petAge: getVal('f4_age'),
+                petGender: getVal('f4_gender'),
+                petMobile: getVal('f4_mobile'),
+                petEmail: getVal('f4_email'),
+                resName: check('f5_name'),
+                resAge: getVal('f5_age'),
+                resGender: getVal('f5_gender'),
+                resMobile: getVal('f5_mobile'),
+                resEmail: getVal('f5_email') || '____________________________',
+                petAdv: check('f6'),
+                resAdv: check('f7'),
+                notice: check('f8'),
+                fee: check('f9'),
+                affidavits: check('f10'),
+                crimeNo: check('f11'),
+                crimeSec: check('f12'),
+                crimePs: check('f13'),
+                lcCase: check('f14'),
+                lcDate: check('f15'),
+                lcJudge: check('f16'),
+                exPet: check('f17'),
+                exRes: check('f18'),
+                exPetAdv: check('f19'),
+                exResAdv: check('f20'),
+                actTitle: check('f21'),
+                actSec: check('f22'),
+                ruleTitle: check('f23'),
+                viresAct: check('f24_i'),
+                viresCases: check('f24_ii'),
+                remarks: check('f25')
+            };
+        }
+
+        /**
+         * PDF Compilation System with Auto-Pagination Safeguard
+         * Document Target Size: Foolscap Paper Array [8.5" x 13.5" -> 612pt x 972pt]
+         */
+        function exportCourtPDF() {
+            const { jsPDF } = window.jspdf;
+            
+            const doc = new jsPDF({
+                orientation: 'portrait',
+                unit: 'pt',
+                format: [612, 972]
+            });
+            
+            const d = extractFormData();
+            
+            const mLeft = 0.5 * 72;    // 36 pt
+            const mRight = 1.75 * 72;  // 126 pt
+            const mTop = 1.5 * 72;     // 108 pt
+            const mBottom = 1.5 * 72;  // 108 pt
+            const pageWidth = 612;
+            const pageHeight = 972;
+            const targetWidth = pageWidth - mLeft - mRight;
+            const maxContentY = pageHeight - mBottom;
+            let y = mTop;
+            const step = 14; 
+            
+            const checkForPageOverflow = (neededHeight) => {
+                if (y + neededHeight > maxContentY) {
+                    doc.addPage([612, 972]);
+                    y = mTop; 
+                }
+            };
+            
+            const applyTitleFont = () => { doc.setFont("Arial", "bolditalic"); doc.setFontSize(14); };
+            const applyNormalFont = () => { doc.setFont("Arial", "normal"); doc.setFontSize(12); };
+            
+            applyTitleFont();
+            doc.text("CourtPerforma AI", mLeft, y);
+            y += 20;
+            
+            applyNormalFont();
+            doc.text(`Single Judge/Division Bench/Larger Bench: ${d.bench}`, mLeft, y);
+            y += 14;
+            
+            doc.line(mLeft, y, pageWidth - mRight, y);
+            y += 16;
+            
+            const printRow = (label, dataString) => {
+                const combined = label ? `${label}: ${dataString}` : dataString;
+                const textLines = doc.splitTextToSize(combined, targetWidth);
+                const blockHeight = textLines.length * step;
+                checkForPageOverflow(blockHeight);
+                doc.text(textLines, mLeft, y);
+                y += blockHeight;
+            };
+            
+            printRow("1. Category", d.category);
+            printRow("2. Cognizable by", d.bench);
+            printRow("3. District", d.district);
+            
+            printRow("4. Petitioner / Appellant / Applicant", d.petName);
+            printRow("", `Age : ${d.petAge}  Gender: ${d.petGender}  Mobile: ${d.petMobile}`);
+            printRow("", `E-Mail : ${d.petEmail}`);
+            
+            printRow("5. Respondent", d.resName);
+            printRow("", `Age : ${d.resAge}  Gender: ${d.resGender}  Mobile: ${d.resMobile}`);
+            printRow("", `E-Mail : ${d.resEmail}`);
+            
+            printRow("6. Petitioner’s Advocate Name & Roll No.", d.petAdv);
+            printRow("7. Respondent’s Advocate Name & Roll No.", d.resAdv);
+            printRow("8. Notice No. (If any)", d.notice);
+            printRow("9. Court Fee Paid", d.fee);
+            printRow("10. No. of Affidavits attached", d.affidavits);
+            
+            y += 4;
+            checkForPageOverflow(step * 4);
+            doc.setFont("Arial", "bold");
+            doc.text("CRIME DETAILS (If Any)", mLeft, y);
+            y += step;
+            applyNormalFont();
+            printRow("11. Crime No. & Year", d.crimeNo);
+            printRow("12. Under Section", d.crimeSec);
+            printRow("13. Police Station & Crime District", d.crimePs);
+            
+            y += 4;
+            checkForPageOverflow(step * 4);
+            doc.setFont("Arial", "bold");
+            doc.text("Lower Court / High Court DETAILS (If Any)", mLeft, y);
+            y += step;
+            applyNormalFont();
+            printRow("14. Lower / High Court Case No. details", d.lcCase);
+            printRow("15. Lower / High court order date", d.lcDate);
+            printRow("16. Lower / High Court order passed by", d.lcJudge);
+            
+            y += 4;
+            checkForPageOverflow(step * 5);
+            doc.setFont("Arial", "bold");
+            doc.text("EXTRA PARTIES & ADVOCATES (Add additional sheet if required)", mLeft, y);
+            y += step;
+            applyNormalFont();
+            printRow("17. Extra Parties (Petitioner)(Mob./email)", d.exPet);
+            printRow("18. Extra Parties (Respondent)(Mob./email)", d.exRes);
+            printRow("19. Extra Advocates (Pet)(With Roll No.)", d.exPetAdv);
+            printRow("20. Extra Advocates (Res)(With Roll No.)", d.exResAdv);
+            
+            y += 4;
+            checkForPageOverflow(step * 6);
+            doc.setFont("Arial", "bold");
+            doc.text("ACTS & SECTIONS (Mandatory)", mLeft, y);
+            y += step;
+            applyNormalFont();
+            printRow("21. Title of Act involved (Center/State)", d.actTitle);
+            printRow("22. Sections", d.actSec);
+            printRow("23. Title of Rule involved (Center/State)", d.ruleTitle);
+            printRow("24. (i) Vires of Acts/Rule challenged", d.viresAct);
+            printRow("    (ii) Particulars of cases involving similar/Identical challenge", d.viresCases);
+            printRow("25. Remarks (if any)", d.remarks);
+            
+            y += 8;
+            checkForPageOverflow(14);
+            doc.text("Advocate’s name & signature: _______________________________________", mLeft, y);
+            
+            y += 16;
+            checkForPageOverflow(60);
+            doc.line(mLeft, y, pageWidth - mRight, y);
+            y += 14;
+            doc.setFont("Arial", "bold");
+            doc.text("FOR STAMP REPORTER OFFICE USE ONLY", mLeft, y);
+            y += step;
+            applyNormalFont();
+            doc.text(`CNR No. (Unique ID): ______________________`, mLeft, y);
+            y += step;
+            doc.text(`Date of Reporting: __________________________`, mLeft, y);
+            y += step;
+            doc.text(`Reporter: ________________________________`, mLeft, y);
+            
+            doc.save("High_Court_Performa.pdf");
+        }
+
+        /**
+         * OpenXML Engine
+         * Compiles native layout structures dynamically safely inside Office templates
+         */
+        function exportCourtDOCX() {
+            const d = extractFormData();
+            
+            const docxContainer = `<w:document xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main">
+                <w:body>
+                    <w:p>
+                        <w:pPr><w:jc w:val="center"/></w:pPr>
+                        <w:r>
+                            <w:rPr><w:rFonts w:ascii="Arial" w:hAnsi="Arial"/><w:b/><w:i/><w:sz w:val="28"/></w:rPr>
+                            <w:t>CourtPerforma AI</w:t>
+                        </w:r>
+                    </w:p>
+                    <w:p/>
+                    ${Object.entries(d).map(([fieldKey, fieldValue]) => `
+                    <w:p>
+                        <w:r>
+                            <w:rPr><w:rFonts w:ascii="Arial" w:hAnsi="Arial"/><w:sz w:val="24"/></w:rPr>
+                            <w:t>${fieldKey.toUpperCase()}: ${fieldValue.replace(/\n/g, ' ')}</w:t>
+                        </w:r>
+                    </w:p>
+                    `).join('')}
+                    <w:sectPr>
+                        <w:pgSz w:w="12240" w:h="19440"/>
+                        <w:pgMar w:top="2160" w:bottom="2160" w:left="720" w:right="2520"/>
+                    </w:sectPr>
+                </w:body>
+            </w:document>`;
+            
+            const blob = new Blob([docxContainer], { type: 'application/msword' });
+            const anchor = document.createElement('a');
+            anchor.href = URL.createObjectURL(blob);
+            anchor.download = "Court_Performa_Form.doc";
+            anchor.click();
+            URL.revokeObjectURL(anchor.href);
+        }
+    </script>
+</body>
+</html>
